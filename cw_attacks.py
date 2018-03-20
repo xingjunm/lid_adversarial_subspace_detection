@@ -14,7 +14,7 @@ from tqdm import tqdm
 from cleverhans.utils import other_classes
 import keras.backend as K
 
-from src.util import lid_adv_term
+from util import lid_adv_term
 
 # settings for C&W L2 attack
 L2_BINARY_SEARCH_STEPS = 9  # number of times to adjust the constant with binary search
