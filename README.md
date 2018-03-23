@@ -1,4 +1,4 @@
-## Code for paper "Characterizing Adversarial Subspaces Using Local Intrinsic Dimensionality".
+## Code for paper "Characterizing Adversarial Subspaces Using Local Intrinsic Dimensionality". https://arxiv.org/abs/1801.02613
 ### 1. Pre-train DNN models:
 python train_model.py -d mnist -e 50 -b 128
 
