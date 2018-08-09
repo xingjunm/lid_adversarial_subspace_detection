@@ -207,7 +207,7 @@ def lid_term(logits, batch_size=100):
     y_pred = logits
 
     # calculate pairwise distance
-    r = tf.reduce_sum(y_pred * y_pred, 1)
+    r = tf.reduce_sum(tf.square(y_pred), axis=1)
     # turn r into column vector
     r = tf.reshape(r, [-1, 1])
     D = r - 2 * tf.matmul(y_pred, tf.transpose(y_pred)) + tf.transpose(r)
@@ -238,11 +238,11 @@ def lid_adv_term(clean_logits, adv_logits, batch_size=100):
     a_pred = tf.reshape(adv_logits, (batch_size, -1))
 
     # calculate pairwise distance
-    r_a = tf.reduce_sum(a_pred * a_pred, 1)
+    r_a = tf.reduce_sum(tf.square(a_pred), axis=1)
     # turn r_a into column vector
     r_a = tf.reshape(r_a, [-1, 1])
 
-    r_c = tf.reduce_sum(c_pred * c_pred, 1)
+    r_c = tf.reduce_sum(tf.square(c_pred), axis=1)
     # turn r_c into row vector
     r_c = tf.reshape(r_c, [1, -1])
 
