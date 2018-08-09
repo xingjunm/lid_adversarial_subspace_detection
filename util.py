@@ -209,13 +209,12 @@ def lid_term(logits, batch_size=100):
     # calculate pairwise distance
     r = tf.reduce_sum(y_pred * y_pred, 1)
     # turn r into column vector
-    r1 = tf.reshape(r, [-1, 1])
-    D = r1 - 2 * tf.matmul(y_pred, tf.transpose(y_pred)) + tf.transpose(r1) + \
-        tf.ones([batch_size, batch_size])
+    r = tf.reshape(r, [-1, 1])
+    D = r - 2 * tf.matmul(y_pred, tf.transpose(y_pred)) + tf.transpose(r)
 
     # find the k nearest neighbor
-    D1 = -tf.sqrt(D)
-    D2, _ = tf.nn.top_k(D1, k=21, sorted=True)
+    D1 = tf.sqrt(D + 1e-9)
+    D2, _ = tf.nn.top_k(-D1, k=21, sorted=True)
     D3 = -D2[:, 1:]
 
     m = tf.transpose(tf.multiply(tf.transpose(D3), 1.0 / D3[:, -1]))
@@ -239,15 +238,19 @@ def lid_adv_term(clean_logits, adv_logits, batch_size=100):
     a_pred = tf.reshape(adv_logits, (batch_size, -1))
 
     # calculate pairwise distance
-    r = tf.reduce_sum(c_pred * a_pred, 1)
-    # turn r into column vector
-    r1 = tf.reshape(r, [-1, 1])
-    D = r1 - 2 * tf.matmul(c_pred, tf.transpose(a_pred)) + tf.transpose(r1) + \
-        tf.ones([batch_size, batch_size])
+    r_a = tf.reduce_sum(a_pred * a_pred, 1)
+    # turn r_a into column vector
+    r_a = tf.reshape(r_a, [-1, 1])
+
+    r_c = tf.reduce_sum(c_pred * c_pred, 1)
+    # turn r_c into row vector
+    r_c = tf.reshape(r, [1, -1])
+
+    D = r_a - 2 * tf.matmul(a_pred, tf.transpose(c_pred)) + r_c
 
     # find the k nearest neighbor
-    D1 = -tf.sqrt(D)
-    D2, _ = tf.nn.top_k(D1, k=21, sorted=True)
+    D1 = tf.sqrt(D + 1e-9)
+    D2, _ = tf.nn.top_k(-D1, k=21, sorted=True)
     D3 = -D2[:, 1:]
 
     m = tf.transpose(tf.multiply(tf.transpose(D3), 1.0 / D3[:, -1]))
