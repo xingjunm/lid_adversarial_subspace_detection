@@ -244,7 +244,7 @@ def lid_adv_term(clean_logits, adv_logits, batch_size=100):
 
     r_c = tf.reduce_sum(c_pred * c_pred, 1)
     # turn r_c into row vector
-    r_c = tf.reshape(r, [1, -1])
+    r_c = tf.reshape(r_c, [1, -1])
 
     D = r_a - 2 * tf.matmul(a_pred, tf.transpose(c_pred)) + r_c
 
