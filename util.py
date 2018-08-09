@@ -441,7 +441,7 @@ def kmean_pca_batch(data, batch, k=10):
     for i in np.arange(batch.shape[0]):
         tmp = np.concatenate((data, [batch[i]]))
         tmp_pca = PCA(n_components=2).fit_transform(tmp)
-        a[i] = mle_single(tmp_pca[:-1], tmp_pca[-1], k=k)
+        a[i] = kmean_batch(tmp_pca[:-1], tmp_pca[-1], k=k)
     return a
 
 def get_lids_random_batch(model, X, X_noisy, X_adv, dataset, k=10, batch_size=100):
