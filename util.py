@@ -129,61 +129,83 @@ def get_model(dataset='mnist', softmax=True):
         layers = [
             Conv2D(64, (3, 3), padding='valid', input_shape=(28, 28, 1)),  # 0
             Activation('relu'),  # 1
-            Conv2D(64, (3, 3)),  # 2
-            Activation('relu'),  # 3
-            MaxPooling2D(pool_size=(2, 2)),  # 4
-            Dropout(0.5),  # 5
-            Flatten(),  # 6
-            Dense(128),  # 7
-            Activation('relu'),  # 8
-            Dropout(0.5),  # 9
-            Dense(10),  # 10
+            BatchNormalization(), # 2
+            Conv2D(64, (3, 3)),  # 3
+            Activation('relu'),  # 4
+            BatchNormalization(), # 5
+            MaxPooling2D(pool_size=(2, 2)),  # 6
+            Dropout(0.5),  # 7
+            Flatten(),  # 8
+            Dense(128),  # 9            
+            Activation('relu'),  # 10
+            BatchNormalization(), # 11
+            Dropout(0.5),  # 12
+            Dense(10),  # 13
         ]
     elif dataset == 'cifar':
         # CIFAR-10 model
         layers = [
             Conv2D(32, (3, 3), padding='same', input_shape=(32, 32, 3)),  # 0
             Activation('relu'),  # 1
-            Conv2D(32, (3, 3), padding='same'),  # 2
-            Activation('relu'),  # 3
-            MaxPooling2D(pool_size=(2, 2)),  # 4
-            Conv2D(64, (3, 3), padding='same'),  # 5
-            Activation('relu'),  # 6
+            BatchNormalization(), # 2
+            Conv2D(32, (3, 3), padding='same'),  # 3
+            Activation('relu'),  # 4
+            BatchNormalization(), # 5
+            MaxPooling2D(pool_size=(2, 2)),  # 6
+            
             Conv2D(64, (3, 3), padding='same'),  # 7
             Activation('relu'),  # 8
-            MaxPooling2D(pool_size=(2, 2)),  # 9
-            Conv2D(128, (3, 3), padding='same'),  # 10
+            BatchNormalization(), # 9
+            Conv2D(64, (3, 3), padding='same'),  # 10
             Activation('relu'),  # 11
-            Conv2D(128, (3, 3), padding='same'),  # 12
-            Activation('relu'),  # 13
-            MaxPooling2D(pool_size=(2, 2)),  # 14
-            Flatten(),  # 15
-            Dropout(0.5),  # 16
-            Dense(1024, kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01)),  # 17
+            BatchNormalization(), # 12
+            MaxPooling2D(pool_size=(2, 2)),  # 13
+            
+            Conv2D(128, (3, 3), padding='same'),  # 14
+            Activation('relu'),  # 15
+            BatchNormalization(), # 16
+            Conv2D(128, (3, 3), padding='same'),  # 17
             Activation('relu'),  # 18
-            Dropout(0.5),  # 19
-            Dense(512, kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01)),  # 20
-            Activation('relu'),  # 21
+            BatchNormalization(), # 19
+            MaxPooling2D(pool_size=(2, 2)),  # 20
+            
+            Flatten(),  # 21
             Dropout(0.5),  # 22
-            Dense(10),  # 23
+            
+            Dense(1024, kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01)),  # 23
+            Activation('relu'),  # 24
+            BatchNormalization(), # 25
+            Dropout(0.5),  # 26
+            Dense(512, kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01)),  # 27
+            Activation('relu'),  # 28
+            BatchNormalization(), # 29
+            Dropout(0.5),  # 30
+            Dense(10),  # 31
         ]
     else:
         # SVHN model
         layers = [
             Conv2D(64, (3, 3), padding='valid', input_shape=(32, 32, 3)),  # 0
             Activation('relu'),  # 1
-            Conv2D(64, (3, 3)),  # 2
-            Activation('relu'),  # 3
-            MaxPooling2D(pool_size=(2, 2)),  # 4
-            Dropout(0.5),  # 5
-            Flatten(),  # 6
-            Dense(512),  # 7
-            Activation('relu'),  # 8
-            Dropout(0.5),  # 9
-            Dense(128),  # 10
-            Activation('relu'),  # 11
+            BatchNormalization(), # 2
+            Conv2D(64, (3, 3)),  # 3
+            Activation('relu'),  # 4
+            BatchNormalization(), # 5
+            MaxPooling2D(pool_size=(2, 2)),  # 6
+            
+            Dropout(0.5),  # 7
+            Flatten(),  # 8
+            
+            Dense(512),  # 9
+            Activation('relu'),  # 10
+            BatchNormalization(), # 11
             Dropout(0.5),  # 12
-            Dense(10),  # 13
+            
+            Dense(128),  # 13
+            Activation('relu'),  # 14
+            BatchNormalization(), # 15
+            Dropout(0.5),  # 16
+            Dense(10),  # 17
         ]
 
     model = Sequential()
