@@ -13,7 +13,7 @@ python extract_characteristics.py -d cifar -a cw-l2 -r lid -k 20 -b 100
 ### 4. Train simple detectors:
 python detect_adv_examples.py -d cifar -a fgsm -t cw-l2 -r lid
 
-#### Requirements:
-numpy, scipy, tqdm, sklearn, matplotlib, tensorflow >= 1.0, Keras >= 2.0, cleverhans >= 1.0.0 (may need extra change to pass in keras learning rate)
+#### Dependencies:
+python 3.5, tqdm, tensorflow = 1.8, Keras >= 2.0, cleverhans >= 1.0.0 (may need extra change to pass in keras learning rate)
 
 #### Kernal Density and Bayesian Uncertainty are from https://github.com/rfeinman/detecting-adversarial-samples ("Detecting Adversarial Samples from Artifacts" (Feinman et al. 2017))
