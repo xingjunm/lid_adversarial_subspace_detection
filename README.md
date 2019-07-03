@@ -21,7 +21,8 @@ python 3.5, tqdm, tensorflow = 1.8, Keras >= 2.0, cleverhans >= 1.0.0 (may need 
 ---------------------------
 If you came across the error:
 
-tensorflow.python.framework.errors_impl.InvalidArgumentError: input_1:0 is both fed and fetched
+<span style="color:red">tensorflow.python.framework.errors_impl.InvalidArgumentError: input_1:0 is both fed and fetched</span>
+
 
 Solution: in function get_layer_wise_activations() (util.py), do the following change:
 acts = [layer.output for layer in model.layers[1:]] # let the layer index start from 1.
