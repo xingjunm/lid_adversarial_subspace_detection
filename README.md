@@ -1,4 +1,4 @@
-## Code for paper "Characterizing Adversarial Subspaces Using Local Intrinsic Dimensionality". https://arxiv.org/abs/1801.02613
+## Code for paper "Characterizing Adversarial Subspaces Using Local Intrinsic Dimensionality". ICLR 2018, https://arxiv.org/abs/1801.02613
 
 ## Update: added BatchNormalization to after Conv and ReLU. 17 Sept. 2018.
 
