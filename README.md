@@ -19,7 +19,8 @@ python 3.5, tqdm, tensorflow = 1.8, Keras >= 2.0, cleverhans >= 1.0.0 (may need 
 #### Kernal Density and Bayesian Uncertainty are from https://github.com/rfeinman/detecting-adversarial-samples ("Detecting Adversarial Samples from Artifacts" (Feinman et al. 2017))
 
 ---------------------------
-If you came across the error: 
+If you came across the error:
+
 tensorflow.python.framework.errors_impl.InvalidArgumentError: input_1:0 is both fed and fetched
 
 Solution: in function get_layer_wise_activations() (util.py), do the following change:
