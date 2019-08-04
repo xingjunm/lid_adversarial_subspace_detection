@@ -21,34 +21,33 @@ def train(dataset='mnist', batch_size=128, epochs=50):
         optimizer='adadelta',
         metrics=['accuracy']
     )
-    # training without data augmentation
-    model.fit(
-        X_train, Y_train,
-        epochs=epochs,
-        batch_size=batch_size,
-        shuffle=True,
-        verbose=1,
-        validation_data=(X_test, Y_test)
-    )
+    
+#     # training without data augmentation
+#     model.fit(
+#         X_train, Y_train,
+#         epochs=epochs,
+#         batch_size=batch_size,
+#         shuffle=True,
+#         verbose=1,
+#         validation_data=(X_test, Y_test)
+#     )
 
     # training with data augmentation
     # data augmentation
-    # datagen = ImageDataGenerator(
-    #     # rotation_range=20,
-    #     width_shift_range=0.2,
-    #     height_shift_range=0.2,
-    #     horizontal_flip=True)
-    # # fit parameters from data
-    # datagen.fit(X_train)
-    #
-    # model.fit_generator(
-    #     datagen.flow(X_train, Y_train, batch_size=batch_size),
-    #     steps_per_epoch=len(X_train) / batch_size,
-    #     epochs=epochs,
-    #     verbose=1,
-    #     validation_data=(X_test, Y_test))
+    datagen = ImageDataGenerator(
+        rotation_range=20,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        horizontal_flip=True)
+    
+    model.fit_generator(
+        datagen.flow(X_train, Y_train, batch_size=batch_size),
+        steps_per_epoch=len(X_train) / batch_size,
+        epochs=epochs,
+        verbose=1,
+        validation_data=(X_test, Y_test))
 
-    model.save('../data/model_%s.h5' % dataset)
+    model.save('data/model_%s.h5' % dataset)
 
 def main(args):
     """
@@ -82,7 +81,7 @@ if __name__ == "__main__":
         help="The batch size to use for training.",
         required=False, type=int
     )
-    parser.set_defaults(epochs=20)
+    parser.set_defaults(epochs=120)
     parser.set_defaults(batch_size=100)
     args = parser.parse_args()
     main(args)
